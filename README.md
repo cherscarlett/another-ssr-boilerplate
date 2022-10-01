@@ -1,6 +1,6 @@
 # Another SSR Boilerplate
 
-From the Riot Tech blog article "Better Apps with React Server-Side Rendering".
+From the Riot Tech blog article "[https://technology.riotgames.com/news/better-apps-react-server-side-rendering](Better Apps with React Server-Side Rendering)".
 
 ## Setup
 
