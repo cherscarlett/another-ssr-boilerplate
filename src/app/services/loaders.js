@@ -1,4 +1,4 @@
-import { setHome, setAbout } from './reducer'
+import { setHome, setResume } from './reducer'
 
 // These are where we get our data! Treat them like any other thunk
 export const loadHome = () => async (dispatch, getState, services) => {
@@ -8,9 +8,9 @@ export const loadHome = () => async (dispatch, getState, services) => {
   return data;
 };
 
-export const loadAbout = () => async (dispatch, getState, services) => {
-  setAbout(null)
-  const { data }  = await services.client('/api/about')
-  dispatch(setAbout(data))
+export const loadResume = () => async (dispatch, getState, services) => {
+  setResume(null)
+  const { data }  = await services.client('/api/resume')
+  dispatch(setResume(data))
   return data;
 };

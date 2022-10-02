@@ -14,3 +14,5 @@ export const webpackProxy = WEBPACK_PORT ? proxy('/dist', {
 
 // static assets from your /dist folder
 export const dist = mount('/dist', serve('dist'))
+
+export const assets = mount('/assets', serve('assets'))

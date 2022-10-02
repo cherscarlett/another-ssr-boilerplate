@@ -3,6 +3,7 @@ import api from './api'
 import {
   dist,
   webpackProxy,
+  assets
 } from './assets'
 import render from './render'
 
@@ -24,6 +25,8 @@ if (WEBPACK_PORT !== undefined) {
 } else {
   app.use(dist)
 }
+
+app.use(assets)
 
 // Api data routes
 app.use(api)

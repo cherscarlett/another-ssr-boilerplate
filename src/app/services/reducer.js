@@ -1,5 +1,5 @@
 const SET_HOME = 'SET_HOME'
-const SET_ABOUT = 'SET_ABOUT'
+const SET_RESUME = 'SET_RESUME'
 
 export const setHome = (data) => {
   return {
@@ -12,15 +12,15 @@ export const selectHome = (state) => {
   return state.home || {}
 }
 
-export const setAbout = (data) => {
+export const setResume = (data) => {
   return {
-    type: SET_ABOUT,
+    type: SET_RESUME,
     data,
   }
 }
 
-export const selectAbout = (state) => {
-  return state.about || {}
+export const selectResume = (state) => {
+  return state.resume || {}
 }
 
 // This example opts for a very simple Redux store
@@ -33,10 +33,10 @@ export default function reducer(state = {}, action) {
         ...state,
         home: action.data,
       }
-    case SET_ABOUT:
+    case SET_RESUME:
       return {
         ...state,
-        about: action.data,
+        resume: action.data,
       }
     default:
       return state

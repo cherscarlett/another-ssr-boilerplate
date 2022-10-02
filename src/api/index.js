@@ -1,19 +1,48 @@
 import Router from 'koa-router'
 import compose from 'koa-compose'
 import mount from 'koa-mount'
+import axios from 'axios'
+import TRACK_IDS from './tracks'
+import content from './content'
+import work from './work'
 
 const router = new Router()
 
-router.get('/home', (ctx) => {
+const SPOTIFY_BASE_URL = 'https://api.spotify.com/v1/'
+const {SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET} = process.env
+
+router.get('/home', async (ctx) => {
+  const response = await axios({
+    method: 'post',
+    url: 'https://accounts.spotify.com/api/token',
+    params: {
+      grant_type: 'client_credentials',
+    },
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ' + (Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64'))
+    }
+  })
+
+  const {access_token} = response.data
+
+  const {data: tracks} = await axios.get(`${SPOTIFY_BASE_URL}tracks?ids=${TRACK_IDS.join(',')}`, {
+    headers: {
+      withCredentials: true,
+      Authorization: `Bearer ${access_token}`
+  }})
+
   ctx.body = {
-    content: 'This is our home content. It was loaded from the server. Check src/api/index.js',
+    content: content.home,
+    tracks: tracks.tracks,
   }
 })
 
-router.get('/about', async (ctx) => {
-  await new Promise(resolve => setTimeout(resolve, 500))
+router.get('/resume', (ctx) => {
+
   ctx.body = {
-    content: 'This is our about section. It took 500 milliseconds to load.',
+    content: content.resume,
+    resume: work,
   }
 })
 
